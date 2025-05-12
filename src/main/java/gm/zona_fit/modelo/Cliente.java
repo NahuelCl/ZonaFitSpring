@@ -12,11 +12,9 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
     private String nombre;
     private String apellido;
