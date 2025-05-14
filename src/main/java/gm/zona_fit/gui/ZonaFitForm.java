@@ -13,13 +13,11 @@ import javax.swing.table.DefaultTableModel;
 public class ZonaFitForm extends JFrame{
     private JPanel panelPrincipal;
     private JTable clientesTabla;
-    private JScrollPane scrollPane1;
     IClienteService clienteService;
-    private DefaultTableModel tablaModeloCliente;
+    private DefaultTableModel tablaModeloClientes;
 
     @Autowired
     public ZonaFitForm(ClienteService clienteServicio){
-        $$$setupUI$$$();
         this.clienteService = clienteServicio;
         iniciarForma();
     }
@@ -31,11 +29,12 @@ public class ZonaFitForm extends JFrame{
         setLocationRelativeTo(null);
     }
 
+
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        this.tablaModeloCliente = new DefaultTableModel(0,4);
-        String[] cabeceros =  {"Id", "Nombre", "Apellido", "Membresia"};
-        this.tablaModeloCliente.setColumnIdentifiers(cabeceros);
-        this.clientesTabla = new JTable(tablaModeloCliente);
+        this.tablaModeloClientes = new DefaultTableModel(0,4);
+        String[] cabeceros= {"Id", "Nombre", "Apellido", "Membresia"};
+        this.tablaModeloClientes.setColumnIdentifiers(cabeceros);
+        this.clientesTabla = new JTable(tablaModeloClientes);
     }
 }
