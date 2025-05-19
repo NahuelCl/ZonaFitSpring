@@ -22,7 +22,7 @@ public class ZonaFitSwing {
         // Crear un objeto de Swing
         SwingUtilities.invokeLater(()-> {
             ZonaFitForma zonaFitForma = contextoSpring.getBean(ZonaFitForma.class);
-            zonaFitForma.setVisible(true);
+            //zonaFitForma.setVisible(true);
         });
     }
 }

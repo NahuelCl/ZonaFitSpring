@@ -13,13 +13,16 @@ import javax.swing.table.DefaultTableModel;
 public class ZonaFitForm extends JFrame{
     private JPanel panelPrincipal;
     private JTable clientesTabla;
+    private JScrollPane scrollPane;
     IClienteService clienteService;
     private DefaultTableModel tablaModeloClientes;
 
     @Autowired
     public ZonaFitForm(ClienteService clienteServicio){
         this.clienteService = clienteServicio;
+        createUIComponents();
         iniciarForma();
+        SwingUtilities.invokeLater(this::listarClientes);
     }
 
     private void iniciarForma(){
@@ -27,14 +30,33 @@ public class ZonaFitForm extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900,600);
         setLocationRelativeTo(null);
+        setVisible(true);
     }
 
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        this.tablaModeloClientes = new DefaultTableModel(0,4);
-        String[] cabeceros= {"Id", "Nombre", "Apellido", "Membresia"};
-        this.tablaModeloClientes.setColumnIdentifiers(cabeceros);
-        this.clientesTabla = new JTable(tablaModeloClientes);
+        String[] cabeceros = {"Id", "Nombre", "Apellido", "Membresia"};
+        this.tablaModeloClientes = new DefaultTableModel(cabeceros, 0);
+        this.clientesTabla = new JTable(this.tablaModeloClientes);
+
+        if (scrollPane != null) {
+            scrollPane.setViewportView(clientesTabla);
+        }
+    }
+
+    private void listarClientes(){
+        this.tablaModeloClientes.setRowCount(0);
+        var clientes = this.clienteService.listarClientes();
+        clientes.forEach(cliente -> {
+            Object[] renglonCliente = new Object[]{
+                    cliente.getId(),
+                    cliente.getNombre(),
+                    cliente.getApellido(),
+                    cliente.getMembresia()
+            };
+            this.tablaModeloClientes.addRow(renglonCliente);
+        });
     }
 }
+
